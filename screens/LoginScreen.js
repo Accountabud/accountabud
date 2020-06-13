@@ -7,8 +7,32 @@ import { withFirebaseHOC } from '../config/Firebase';
 const Login = ({ firebase, navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    //For input validation
+    const [error, setError] = useState('');
+    const [isValid, setValid] = useState(true);
+
+    //Validate Email
+    const isValidEmail = email => {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    };
     
     const handleLogin = async (email, password) => {
+        //input validation
+        if (!email) {
+            setError('Email required');
+            setValid(false);
+            return
+        } else if (!password || password.length < 6) {
+            setError('Password must be at least 6 characters long');
+            setValid(false);
+            return
+        } else if (!isValidEmail(email)) {
+            setError('Invalid Email!');
+            setValid(false);
+            return
+        }
+
         try { const response = await firebase.loginWithEmail(email, password)
             if (response.user) {
                 console.log('there is a user');
@@ -16,11 +40,26 @@ const Login = ({ firebase, navigation }) => {
             }
         }
         catch (error) {
-            console.log(error.message);
+            setError(error.message)
         }
     };
 
     const handleSignUp = async (email, password) => {
+        //input validation
+        if (!email) {
+            setError('Email required');
+            setValid(false);
+            return
+        } else if (!password || password.length < 6) {
+            setError('Password must be at least 6 characters long');
+            setValid(false);
+            return
+        } else if (!isValidEmail(email)) {
+            setError('Invalid Email!');
+            setValid(false);
+            return
+        }
+
         try { const response = await firebase.signupWithEmail(email, password)
             if (response.user.uid) {
                 const { uid } = response.user;
@@ -30,6 +69,7 @@ const Login = ({ firebase, navigation }) => {
             }
         }
         catch (error) {
+            setError(error.message);
             console.log(error.message);
         }
     };
@@ -45,9 +85,10 @@ const Login = ({ firebase, navigation }) => {
                     placeholder='email'
                     style={styles.textInputStyle}
                     onChangeText={text => {
+                        setValid(isValidEmail(text))
                         setEmail(text)
                     }}
-                    onSubmit={() => console.log(text)}
+                    error={isValid}
                     />
             </View>
             <View style={styles.formContainer}>
@@ -59,8 +100,14 @@ const Login = ({ firebase, navigation }) => {
                     onChangeText={text => {
                         setPassword(text)
                     }}
+                    error={isValid}
                     />
             </View>
+            {error ? (
+                <View style={styles.errorLabelContainer}>
+                    <Text style={styles.errorText}>{error}</Text>
+                </View>
+            ) : null}
             <TouchableOpacity>
                 <Text style={styles.forgot}>Forgot Password?</Text>
             </TouchableOpacity>
@@ -120,6 +167,13 @@ const styles = StyleSheet.create({
     textInputStyle: {
         height: 50,
         color: 'black'
+    },
+    errorLabelContainer: {
+        width: '80%',
+    },
+    errorText: {
+        color: 'red',
+        textAlign: 'center'
     }
 })
 
