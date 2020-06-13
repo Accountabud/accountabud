@@ -7,6 +7,7 @@ import useCachedResources from './hooks/useCachedResources';
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import LinkingConfiguration from './navigation/LinkingConfiguration';
 import LoginScreen from './screens/LoginScreen';
+import GoalsScreen from './screens/GoalsScreen';
 
 const Stack = createStackNavigator();
 
@@ -21,7 +22,7 @@ export default function App(props) {
         {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
         <NavigationContainer linking={LinkingConfiguration}>
           <Stack.Navigator>
-            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Login" component={GoalsScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </View>

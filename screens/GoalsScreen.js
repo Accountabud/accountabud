@@ -4,14 +4,15 @@ import { Image, Platform, StyleSheet, Text, TouchableOpacity, Button, View } fro
 import { ScrollView } from 'react-native-gesture-handler';
 
 import { MonoText } from '../components/StyledText';
+import GoalItem from '../components/GoalItem';
+import AddGoalItem from '../components/AddGoalItem';
 
-export default function HomeScreen() {
+export default function GoalsScreen() {
   return (
     <View style={styles.container}>
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        <Button title="Action Plan/ Tracker"/>
-        <Button title="My Progress"/>
-        <Button title="Resources"/>
+        <AddGoalItem></AddGoalItem>
+        <GoalItem></GoalItem>
         {/* <View style={styles.welcomeContainer}>
           <Image
             source={
@@ -55,7 +56,7 @@ export default function HomeScreen() {
   );
 }
 
-HomeScreen.navigationOptions = {
+GoalsScreen.navigationOptions = {
   header: null,
 };
 
