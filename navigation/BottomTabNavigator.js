@@ -5,6 +5,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import MyProgressScreen from '../screens/MyProgress';
+import GoalsScreen from '../screens/GoalsScreen';
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
@@ -41,6 +42,14 @@ export default function BottomTabNavigator({ navigation, route }) {
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-book" />,
         }}
       />
+        <BottomTab.Screen
+        name="Goals"
+        component={GoalsScreen}
+        options={{
+          title: 'Goals',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-book" />,
+        }}
+      />
     </BottomTab.Navigator>
   );
 }
@@ -50,8 +59,12 @@ function getHeaderTitle(route) {
 
   switch (routeName) {
     case 'Home':
-      return 'How to get started';
+      return 'Home';
     case 'Links':
-      return 'Links to learn more';
+      return 'Resources';
+    case 'Goals':
+      return 'Goals';
+    case 'Progress':
+      return 'My Impact';
   }
 }
