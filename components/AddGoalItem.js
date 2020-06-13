@@ -1,16 +1,28 @@
-import React from 'react'
-import { View, Text, TextInput, StyleSheet, TouchableOpacity} from 'react-native'
+import React, { useState } from 'react';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity} from 'react-native';
+import firebase from '../config/Firebase';
+
+
 
 const AddGoalItem = () => {
+  const [ goal, setGoal ] = useState('');
+
+  const handleGoalSubmit = (goal) => {
+    console.log('pressing', goal);
+    firebase.setGoals(goal);
+  }
+
   return (
+    
     <View>
     <TextInput 
+      label="Goal"
       placeholder="Add Goal.." 
       style={styles.input}
-  
+      onChangeText={text => {setGoal(text)}}
       />
     <TouchableOpacity style={styles.btn}>
-      <Text style={styles.btnText}> + Add Item</Text>
+      <Text style={styles.btnText} onPress={() => handleGoalSubmit(goal)}> + Add Item</Text>
     </TouchableOpacity>
   </View>
   )

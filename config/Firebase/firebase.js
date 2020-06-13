@@ -49,7 +49,6 @@ const Firebase = {
   },
 
   setGoals: goalStr => {
-    console.log('hiii');
     console.log(goalStr);
     const user = firebase.auth().currentUser;
     console.log(user.uid);
