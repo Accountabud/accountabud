@@ -1,12 +1,41 @@
 import React, { useState } from 'react';
 import { Image, TextInput, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import { withFirebaseHOC } from '../config/Firebase';
 
 
-export default function Login() {
+const Login = ({ firebase }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     
+    const handleLogin = async (email, password) => {
+        const emailLower = email.toLowerCase();
+        console.log(emailLower, password);
+        try { const response = await firebase.loginWithEmail(email, password)
+            if (response.user) {
+                console.log('there is a user');
+            }
+        }
+        catch (error) {
+            console.log(error.message);
+        }
+    };
+
+    const handleSignUp = async (email, password) => {
+        const emailLower = email.toLowerCase();
+        console.log(emailLower, password);
+        try { const response = await firebase.signupWithEmail(email, password)
+            if (response.user.uid) {
+                const { uid } = response.user;
+                const userData = { uid, email, password };
+
+                await firebase.createNewUser(userData);
+            }
+        }
+        catch (error) {
+            console.log(error.message);
+        }
+    };
 
     return (
         <View style={styles.container}>
@@ -20,10 +49,10 @@ export default function Login() {
                     onChangeText={text => {
                         setEmail(text)
                     }}
+                    onSubmit={() => console.log(text)}
                     />
             </View>
             <View style={styles.formContainer}>
-
                 <TextInput
                     label={'Password'}
                     secureTextEntry
@@ -37,12 +66,12 @@ export default function Login() {
             <TouchableOpacity>
                 <Text style={styles.forgot}>Forgot Password?</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.signInButton} onPress={() => console.log('pressed', email, password)}>
+            <TouchableOpacity style={styles.signInButton} onPress={() => handleLogin(email, password)}>
                 <Text style={styles.signInButtonText}>Login</Text>
              </TouchableOpacity>
 
             <TouchableOpacity>
-                <Text style={styles.signInButtonText}>Sign Up</Text>
+                <Text style={styles.signInButtonText} onPress={() => handleSignUp(email, password)}>Sign Up</Text>
             </TouchableOpacity>
         </View>
 
@@ -92,6 +121,8 @@ const styles = StyleSheet.create({
     },
     textInputStyle: {
         height: 50,
-        color: 'white'
+        color: 'black'
     }
 })
+
+export default withFirebaseHOC(Login);
