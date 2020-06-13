@@ -8,6 +8,7 @@ import useCachedResources from './hooks/useCachedResources';
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import LinkingConfiguration from './navigation/LinkingConfiguration';
 import LoginScreen from './screens/LoginScreen';
+import HomeScreen from './screens/HomeScreen';
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,7 @@ export default function App(props) {
           <NavigationContainer linking={LinkingConfiguration}>
             <Stack.Navigator>
               <Stack.Screen name="Login" component={LoginScreen} />
+              <Stack.Screen name="Links" component={BottomTabNavigator} />
             </Stack.Navigator>
           </NavigationContainer>
         </View>

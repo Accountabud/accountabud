@@ -4,16 +4,15 @@ import { TouchableHighlight } from 'react-native-gesture-handler';
 import { withFirebaseHOC } from '../config/Firebase';
 
 
-const Login = ({ firebase }) => {
+const Login = ({ firebase, navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     
     const handleLogin = async (email, password) => {
-        const emailLower = email.toLowerCase();
-        console.log(emailLower, password);
         try { const response = await firebase.loginWithEmail(email, password)
             if (response.user) {
                 console.log('there is a user');
+                navigation.navigate('Links');
             }
         }
         catch (error) {
@@ -22,8 +21,6 @@ const Login = ({ firebase }) => {
     };
 
     const handleSignUp = async (email, password) => {
-        const emailLower = email.toLowerCase();
-        console.log(emailLower, password);
         try { const response = await firebase.signupWithEmail(email, password)
             if (response.user.uid) {
                 const { uid } = response.user;
@@ -44,6 +41,7 @@ const Login = ({ firebase }) => {
                 <TextInput
                     label={'Email'}
                     keyboardType='email-address'
+                    autoCapitalize='none'
                     placeholder='email'
                     style={styles.textInputStyle}
                     onChangeText={text => {
