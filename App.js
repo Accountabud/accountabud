@@ -9,6 +9,9 @@ import BottomTabNavigator from './navigation/BottomTabNavigator';
 import LinkingConfiguration from './navigation/LinkingConfiguration';
 import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
+import MyProgressScreen from './screens/MyProgress';
+import ResourcesScreen from './screens/ResourcesScreen';
+import PastActionsScreen from './screens/PastActionsScreen'
 
 const Stack = createStackNavigator();
 
