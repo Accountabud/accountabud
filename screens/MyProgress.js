@@ -6,7 +6,6 @@ export default function ProgressScreen() {
     return (
         <View style={styles.container}>
             <Text style={styles.page_title}>My Progress</Text>
-            //Floating button to go to archive
             <View style={styles.box}> 
                 <Text style={styles.stat_title}>CURRENT STREAK</Text>
                 <Text style={styles.stat_number}>40</Text>
