@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#EEE",
     padding: 10,
     borderWidth: 2,
-    borderColor: '#2196f3',
+    borderColor: '#FCE21A',
     margin: 10, 
   },
   page_title: {
