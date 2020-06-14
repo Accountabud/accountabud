@@ -12,6 +12,7 @@ import HomeScreen from './screens/HomeScreen';
 import MyProgressScreen from './screens/MyProgress';
 import ResourcesScreen from './screens/ResourcesScreen';
 import PastActionsScreen from './screens/PastActionsScreen'
+import GoalsScreen from './screens/GoalsScreen';
 
 const Stack = createStackNavigator();
 
@@ -27,7 +28,7 @@ export default function App(props) {
           {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
           <NavigationContainer linking={LinkingConfiguration}>
             <Stack.Navigator>
-              <Stack.Screen name="Login" component={LoginScreen} />
+              <Stack.Screen name="Login" component={GoalsScreen} />
               <Stack.Screen name="Links" component={BottomTabNavigator} />
             </Stack.Navigator>
           </NavigationContainer>
