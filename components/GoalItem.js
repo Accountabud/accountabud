@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Text, TouchableOpacity, TouchableHighlight } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+  SafeAreaView,
+  View,
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TouchableHighlight,
+} from 'react-native';
 import Constants from 'expo-constants';
 import { SwipeListView } from 'react-native-swipe-list-view';
-
+import { withFirebaseHOC } from '../config/Firebase';
 
 // const DATA = [
 //   {
@@ -27,65 +35,88 @@ function Item({ title }) {
   );
 }
 
+// const handleGoalSubmit = async goal => {
+//   console.log('pressing', goal);
+//   try {
+//     const goals = await firebase.getGoals();
+//     !goals
+//       ? await firebase.addGoals(goal)
+//       : await firebase.updateGoals(goals, goal);
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// };
+function SwipeGoals({ firebase }) {
+  const [listData, setListData] = useState();
+  // Array(20)
+  //   .fill('')
+  //   .map((_, i) => ({ key: `${i}`, text: `item #${i}` }))
 
+  useEffect(() => {
+    const getGoalArr = async () => {
+      try {
+        const goals = await firebase.getGoals();
+        setListData(goals);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    getGoalArr();
+  }, [listData]);
 
-export default function SwipeGoals() {
-  const [listData, setListData] = useState(
-    Array(20)
-        .fill('')
-        .map((_, i) => ({ key: `${i}`, text: `item #${i}` }))
-);
-
-const closeRow = (rowMap, rowKey) => {
-  if (rowMap[rowKey]) {
+  const closeRow = (rowMap, rowKey) => {
+    if (rowMap[rowKey]) {
       rowMap[rowKey].closeRow();
-  }
-};
+    }
+  };
 
-const deleteRow = (rowMap, rowKey) => {
-  closeRow(rowMap, rowKey);
-  const newData = [...listData];
-  const prevIndex = listData.findIndex(item => item.key === rowKey);
-  newData.splice(prevIndex, 1);
-  setListData(newData);
-};
+  const deleteRow = (rowMap, rowKey) => {
+    closeRow(rowMap, rowKey);
+    const newData = [...listData];
+    const prevIndex = listData.findIndex(item => item.key === rowKey);
+    newData.splice(prevIndex, 1);
+    setListData(newData);
+  };
 
-const onRowDidOpen = rowKey => {
-  console.log('This row opened', rowKey);
-};
+  const onRowDidOpen = rowKey => {
+    console.log('This row opened', rowKey);
+  };
 
-const renderItem = data => (
-  <TouchableHighlight
-      onPress={() => console.log('You touched me')}
-      style={styles.rowFront}
-      underlayColor={'#AAA'}
-  >
-      <View>
-          <Text>I am {data.item.text} in a SwipeListView</Text>
-      </View>
-  </TouchableHighlight>
-);
+  const renderItem = data => {
+    let dataJSON = JSON.stringify(data);
+    // console.log(dataStr.item);
+    let JSONparse = JSON.parse(dataJSON);
+    return (
+      <TouchableHighlight
+        onPress={() => console.log(JSONparse)}
+        style={styles.rowFront}
+        underlayColor={'#AAA'}
+      >
+        <View>
+          <Text>{JSONparse.item.goal}</Text>
+        </View>
+      </TouchableHighlight>
+    );
+  };
 
-const renderHiddenItem = (data, rowMap) => (
-  <View style={styles.rowBack}>
+  const renderHiddenItem = (data, rowMap) => (
+    <View style={styles.rowBack}>
       <Text>Left</Text>
       <TouchableOpacity
-          style={[styles.backRightBtn, styles.backRightBtnLeft]}
-          onPress={() => closeRow(rowMap, data.item.key)}
+        style={[styles.backRightBtn, styles.backRightBtnLeft]}
+        onPress={() => closeRow(rowMap, data.item.key)}
       >
-          <Text style={styles.backTextWhite}>Close</Text>
+        <Text style={styles.backTextWhite}>Close</Text>
       </TouchableOpacity>
       <TouchableOpacity
-          style={[styles.backRightBtn, styles.backRightBtnRight]}
-          onPress={() => deleteRow(rowMap, data.item.key)}
+        style={[styles.backRightBtn, styles.backRightBtnRight]}
+        onPress={() => deleteRow(rowMap, data.item.key)}
       >
-          <Text style={styles.backTextWhite}>Delete</Text>
+        <Text style={styles.backTextWhite}>Delete</Text>
       </TouchableOpacity>
-  </View>
-);
+    </View>
+  );
 
-
-  
   return (
     <View style={styles.container}>
       <SwipeListView
@@ -101,7 +132,6 @@ const renderHiddenItem = (data, rowMap) => (
       />
     </View>
 
-
     // <SafeAreaView style={styles.container}>
     //   <FlatList
     //     data={DATA}
@@ -116,42 +146,42 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     flex: 1,
-},
-backTextWhite: {
+  },
+  backTextWhite: {
     color: '#FFF',
-},
-rowFront: {
+  },
+  rowFront: {
     alignItems: 'center',
     backgroundColor: '#CCC',
     borderBottomColor: 'black',
     borderBottomWidth: 1,
     justifyContent: 'center',
     height: 50,
-},
-rowBack: {
+  },
+  rowBack: {
     alignItems: 'center',
     backgroundColor: '#DDD',
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingLeft: 15,
-},
-backRightBtn: {
+  },
+  backRightBtn: {
     alignItems: 'center',
     bottom: 0,
     justifyContent: 'center',
     position: 'absolute',
     top: 0,
     width: 75,
-},
-backRightBtnLeft: {
+  },
+  backRightBtnLeft: {
     backgroundColor: 'blue',
     right: 75,
-},
-backRightBtnRight: {
+  },
+  backRightBtnRight: {
     backgroundColor: 'red',
     right: 0,
-},
+  },
 
   // container: {
   //   flex: 1,
@@ -168,7 +198,6 @@ backRightBtnRight: {
   // },
 });
 
-
 // const GoalItem = () => {
 //   return (
 //     <TouchableOpacity style={styles.listItem}>
@@ -177,7 +206,7 @@ backRightBtnRight: {
 //         <Text style={styles.listItemText}>
 //           Goal Title
 //         </Text>
-//         <Text 
+//         <Text
 //           style={styles.deleteItem}
 //           >
 //           X</Text>
@@ -205,7 +234,9 @@ backRightBtnRight: {
 //     color: 'firebrick',
 //     fontSize: 20,
 //   }
-  
+
 // })
 
 // export default GoalItem
+
+export default withFirebaseHOC(SwipeGoals);

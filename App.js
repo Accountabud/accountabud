@@ -11,12 +11,21 @@ import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import MyProgressScreen from './screens/MyProgress';
 import ResourcesScreen from './screens/ResourcesScreen';
-import PastActionsScreen from './screens/PastActionsScreen'
+import PastActionsScreen from './screens/PastActionsScreen';
 import GoalsScreen from './screens/GoalsScreen';
-import {Provider} from 'react-redux'
-import store from './redux/store'
-import ReadHolder from './screens/ResourcePages/ReadHolder'
-import WatchHolder from './screens/ResourcePages/WatchHolder'
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import ReadHolder from './screens/ResourcePages/ReadHolder';
+import WatchHolder from './screens/ResourcePages/WatchHolder';
+import { decode, encode } from 'base-64';
+
+if (!global.btoa) {
+  global.btoa = encode;
+}
+
+if (!global.atob) {
+  global.atob = decode;
+}
 
 const Stack = createStackNavigator();
 
@@ -28,16 +37,16 @@ export default function App(props) {
   } else {
     return (
       <FirebaseProvider value={Firebase}>
-        <Provider store = {store}>
-        <View style={styles.container}>
-          {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
-          <NavigationContainer linking={LinkingConfiguration}>
-            <Stack.Navigator>
-              <Stack.Screen name="Login" component={ReadHolder} />
-              <Stack.Screen name="Links" component={BottomTabNavigator} />
-            </Stack.Navigator>
-          </NavigationContainer>
-        </View>
+        <Provider store={store}>
+          <View style={styles.container}>
+            {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
+            <NavigationContainer linking={LinkingConfiguration}>
+              <Stack.Navigator>
+                <Stack.Screen name="Login" component={LoginScreen} />
+                <Stack.Screen name="Links" component={BottomTabNavigator} />
+              </Stack.Navigator>
+            </NavigationContainer>
+          </View>
         </Provider>
       </FirebaseProvider>
     );

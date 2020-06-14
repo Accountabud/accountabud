@@ -1,32 +1,48 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity} from 'react-native';
-import firebase from '../config/Firebase';
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
+import { withFirebaseHOC } from '../config/Firebase';
 
+const AddGoalItem = ({ firebase }) => {
+  const [goal, setGoal] = useState('');
 
-
-const AddGoalItem = () => {
-  const [ goal, setGoal ] = useState('');
-
-  const handleGoalSubmit = (goal) => {
+  const handleGoalSubmit = async goal => {
     console.log('pressing', goal);
-    firebase.setGoals(goal);
-  }
+    try {
+      const goals = await firebase.getGoals();
+      console.log(goals);
+      !goals
+        ? await firebase.addGoals(goal)
+        : await firebase.updateGoals(goals, goal);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   return (
-    
     <View>
-    <TextInput 
-      label="Goal"
-      placeholder="Add a New Goal.." 
-      style={styles.input}
-      onChangeText={text => {setGoal(text)}}
+      <TextInput
+        label="Goal"
+        placeholder="Add a New Goal.."
+        style={styles.input}
+        onChangeText={text => {
+          setGoal(text);
+        }}
       />
-    <TouchableOpacity style={styles.btn}>
-      <Text style={styles.btnText} onPress={() => handleGoalSubmit(goal)}> Add Goal to List</Text>
-    </TouchableOpacity>
-  </View>
-  )
-}
+      <TouchableOpacity style={styles.btn}>
+        <Text style={styles.btnText} onPress={() => handleGoalSubmit(goal)}>
+          {' '}
+          Add Goal to List
+        </Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   input: {
@@ -44,6 +60,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
   },
-})
+});
 
-export default AddGoalItem
+export default withFirebaseHOC(AddGoalItem);

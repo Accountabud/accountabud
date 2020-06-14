@@ -45,7 +45,7 @@ const Firebase = {
         return data.goals;
       })
       .catch(function(error) {
-        console.log('Error getting documents: ', error);
+        console.log(error);
       });
   },
 
@@ -58,6 +58,26 @@ const Firebase = {
       .doc(user.uid)
       .set({
         goals: [
+          {
+            goal: goalStr,
+            createdAt: timestamp,
+            id: new Date().valueOf(),
+            completed: false,
+          },
+        ],
+      });
+  },
+
+  updateGoals: (goalarr, goalStr) => {
+    const user = firebase.auth().currentUser;
+    const timestamp = firebase.firestore.Timestamp.now().toDate();
+    return firebase
+      .firestore()
+      .collection('goals')
+      .doc(user.uid)
+      .set({
+        goals: [
+          ...goalarr,
           {
             goal: goalStr,
             createdAt: timestamp,
