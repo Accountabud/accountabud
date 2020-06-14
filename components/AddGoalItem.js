@@ -14,11 +14,9 @@ const AddGoalItem = ({ firebase }) => {
   const handleGoalSubmit = async goal => {
     console.log('pressing', goal);
     try {
-      const goals = await firebase.getGoals();
+      const goals = await firebase.getGoalsForAdd();
       console.log(goals);
-      !goals
-        ? await firebase.addGoals(goal)
-        : await firebase.updateGoals(goals, goal);
+      await firebase.updateGoals(goals, goal);
     } catch (error) {
       console.log(error.message);
     }

@@ -42,7 +42,24 @@ const Firebase = {
       .get()
       .then(function(doc) {
         let data = doc.data();
-        return data.goals;
+        return data ? data.goals : [];
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  },
+
+  getGoalsForAdd: () => {
+    const user = firebase.auth().currentUser;
+    // console.log(user);
+    return firebase
+      .firestore()
+      .collection('goals')
+      .doc(user.uid)
+      .get()
+      .then(function(doc) {
+        let data = doc.data();
+        return data ? data.goals : [];
       })
       .catch(function(error) {
         console.log(error);
