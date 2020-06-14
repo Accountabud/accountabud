@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity} from 'react-native';
 import firebase from '../config/Firebase';
+import {connect} from 'react-redux'
+import {addedGoal} from '../redux/actions'
 
 
 
-const AddGoalItem = () => {
+const AddGoalItem = (props) => {
   const [ goal, setGoal ] = useState('');
 
   const handleGoalSubmit = (goal) => {
-    console.log('pressing', goal);
-    firebase.setGoals(goal);
+    // console.log('pressing', goal);
+    // firebase.setGoals(goal);
+    props.addedGoal(goal)
   }
 
   return (
@@ -46,4 +49,17 @@ const styles = StyleSheet.create({
   },
 })
 
-export default AddGoalItem
+
+const mapStateToProps = state => {
+  return({
+    goals: state.goals
+  })
+}
+
+const mapDispatchToProps = dispatch => {
+  return ({
+    addedGoal: (g) => {dispatch(addedGoal(g))},
+  })
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(AddGoalItem)
