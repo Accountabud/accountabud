@@ -11,7 +11,7 @@ export default function ResourcesScreen() {
                 style={styles.button}
                 // onPress={onPress}
               >
-                <Text style={styles.button_name}>READ</Text>
+                <Text style={styles.button_name} onPress={() => WebBrowser.openBrowserAsync('https://docs.expo.io')}>READ</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#EEE",
     padding: 10,
     borderWidth: 2,
-    borderColor: '#000',
+    borderColor: '#2196f3',
     margin: 10, 
   },
   page_title: {

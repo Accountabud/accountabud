@@ -10,11 +10,11 @@ import AddGoalItem from '../components/AddGoalItem';
 export default function GoalsScreen() {
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+      <View style={styles.container} contentContainerStyle={styles.contentContainer}>
         <AddGoalItem/>
         <GoalItem/>
 
-      </ScrollView>
+      </View>
     </View>
   );
 }

@@ -17,12 +17,12 @@ const AddGoalItem = () => {
     <View>
     <TextInput 
       label="Goal"
-      placeholder="Add Goal.." 
+      placeholder="Add a New Goal.." 
       style={styles.input}
       onChangeText={text => {setGoal(text)}}
       />
     <TouchableOpacity style={styles.btn}>
-      <Text style={styles.btnText} onPress={() => handleGoalSubmit(goal)}> + Add Item</Text>
+      <Text style={styles.btnText} onPress={() => handleGoalSubmit(goal)}> Add Goal to List</Text>
     </TouchableOpacity>
   </View>
   )
