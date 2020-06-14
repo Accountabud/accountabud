@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Text, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { SafeAreaView, View,  StyleSheet, Text, TouchableOpacity, TouchableHighlight } from 'react-native';
 import Constants from 'expo-constants';
 import { SwipeListView } from 'react-native-swipe-list-view';
 
@@ -29,7 +29,7 @@ function Item({ title }) {
 
 
 
-export default function App() {
+export default function SwipeGoals() {
   const [listData, setListData] = useState(
     Array(20)
         .fill('')
