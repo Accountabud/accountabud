@@ -15,6 +15,8 @@ import PastActionsScreen from './screens/PastActionsScreen'
 import GoalsScreen from './screens/GoalsScreen';
 import {Provider} from 'react-redux'
 import store from './redux/store'
+import ReadHolder from './screens/ResourcePages/ReadHolder'
+import WatchHolder from './screens/ResourcePages/WatchHolder'
 
 const Stack = createStackNavigator();
 
@@ -31,7 +33,7 @@ export default function App(props) {
           {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
           <NavigationContainer linking={LinkingConfiguration}>
             <Stack.Navigator>
-              <Stack.Screen name="Login" component={LoginScreen} />
+              <Stack.Screen name="Login" component={ReadHolder} />
               <Stack.Screen name="Links" component={BottomTabNavigator} />
             </Stack.Navigator>
           </NavigationContainer>
