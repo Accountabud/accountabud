@@ -2,6 +2,7 @@ import * as firebase from 'firebase';
 import 'firebase/auth';
 import 'firebase/firestore';
 import firebaseConfig from './firebaseConfig';
+import { FlatList } from 'react-native-gesture-handler';
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -41,27 +42,40 @@ const Firebase = {
       .get()
       .then(function(doc) {
         let data = doc.data();
-        return data.goal;
+        return data.goals;
       })
       .catch(function(error) {
         console.log('Error getting documents: ', error);
       });
   },
 
-  setGoals: goalStr => {
-    console.log(goalStr);
+  addGoals: goalStr => {
     const user = firebase.auth().currentUser;
-    console.log(user.uid);
-
     const timestamp = firebase.firestore.Timestamp.now().toDate();
     return firebase
       .firestore()
       .collection('goals')
       .doc(user.uid)
       .set({
-        goal: goalStr,
-        createdAt: timestamp,
-        id: new Date().valueOf(),
+        goals: [
+          {
+            goal: goalStr,
+            createdAt: timestamp,
+            id: new Date().valueOf(),
+            completed: false,
+          },
+        ],
+      });
+  },
+
+  setCompleted: () => {
+    const user = firebase.auth().currentUser;
+    return firebase
+      .firestore()
+      .collection('goals')
+      .doc(user.uid)
+      .update({
+        completed: true,
       })
       .catch(function(error) {
         console.log('Error creating documents: ', error);
