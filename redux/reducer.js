@@ -1,9 +1,32 @@
 import { combineReducers } from 'redux'
 
-const goalsReducer = (state = ["donate state"], action) => {
+const initial_state = [
+    {goal: "donate", completed: false, id: 1},
+    {goal: "read an article", completed: false, id: 2},
+    {goal: "support black-owned business", completed: false, id: 3}
+]
+
+const goalsReducer = (state = initial_state, action) => {
+    let goals
     switch(action.type){
-        case "FETCHED_GOALS":
-            return action.payload
+        // case "FETCHED_GOALS":
+        //     return action.payload
+        case "ADDED_GOAL":
+            goals = [...state]
+            goals.push(action.payload)
+            return goals
+        case "DELETED_GOAL":
+            goals = state.filter(p => p.id !== action.payload.id)
+            return goals
+        case "COMPLETED_GOAL":
+            goals = state.map(g => {
+                if(g.id === action.payload.id){
+                  return {...g, completed: true}
+                } else{
+                  return g
+                }
+              })
+            return goals
         default: return state
     }
 }

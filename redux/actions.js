@@ -18,4 +18,26 @@ function fetchedGoals(goals){
     }
  }
 
- export {fetchingGoals}
+function addedGoal(goalString){
+    return{
+        type: "ADDED_GOAL",
+        payload: {goal: goalString, completed: false, id: Date.now()}
+    }
+}
+
+function deletedGoal(goalObject){
+    return{
+        type: "DELETED_GOAL",
+        payload: goalObject
+    }
+}
+
+function completedGoal(goalObject){
+    return{
+        type:"COMPLETED_GOAL",
+        payload: goalObject
+    }
+}
+
+
+ export {fetchingGoals, addedGoal, deletedGoal, completedGoal}
