@@ -11,49 +11,11 @@ function HomeScreen(props) {
   return (
     <View style={styles.container}>
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        <Button title="Action Plan/ Tracker"/>
-        <Button title="My Progress"/>
-        <Button title="Resources"/>
-        {/* <Button onPress={props.fetchingGoals} title="fetchingGoals" /> */}
-        {/* <View style={styles.welcomeContainer}>
-          <Image
-            source={
-              __DEV__
-                ? require('../assets/images/robot-dev.png')
-                : require('../assets/images/robot-prod.png')
-            }
-            style={styles.welcomeImage}
-          />
-        </View> */}
-
-        {/* <View style={styles.getStartedContainer}>
-          <DevelopmentModeNotice />
-
-          <Text style={styles.getStartedText}>Open up the code for this screen:</Text>
-
-          <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-            <MonoText>screens/HomeScreen.js</MonoText>
-          </View>
-
-          <Text style={styles.getStartedText}>
-            Change any of the text, save the file, and your app will automatically reload.
-          </Text>
-        </View> */}
-
-        {/* <View style={styles.helpContainer}>
-          <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
-            <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
-          </TouchableOpacity>
-        </View> */}
-      </ScrollView>
-{/* 
-      <View style={styles.tabBarInfoContainer}>
-        
-
-        <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-          
+      <Image styles={styles.personimage} source={require('../assets/images/mountainsicon.png')} />
+      <View styles={styles.logoimage}>
+      <Image styles={styles.logoimage} source={require('../assets/images/bluelogo.png')} />
         </View>
-      </View> */}
+      </ScrollView>
     </View>
   );
 }
@@ -195,5 +157,18 @@ const styles = StyleSheet.create({
   helpLinkText: {
     fontSize: 14,
     color: '#2e78b7',
+  },
+
+  personimage: {
+    width: '50%'
+  },
+
+  logoimage: {
+    width: '50%',
+    margin: 20,
+    paddingLeft: 20,
+    backgroundColor: 'red',
+  
+    
   },
 });
