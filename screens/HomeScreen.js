@@ -2,16 +2,19 @@ import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
 import { Image, Platform, StyleSheet, Text, TouchableOpacity, Button, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import {connect} from 'react-redux'
+import {fetchingGoals} from '../redux/actions'
 
 import { MonoText } from '../components/StyledText';
 
-export default function HomeScreen() {
+function HomeScreen(props) {
   return (
     <View style={styles.container}>
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
         <Button title="Action Plan/ Tracker"/>
         <Button title="My Progress"/>
         <Button title="Resources"/>
+        <Button onPress={props.fetchingGoals} title="fetchingGoals" />
         {/* <View style={styles.welcomeContainer}>
           <Image
             source={
@@ -54,6 +57,20 @@ export default function HomeScreen() {
     </View>
   );
 }
+
+const mapStateToProps = state => {
+  return({
+    goals: state.goals
+  })
+}
+
+const mapDispatchToProps = dispatch => {
+  return ({
+    fetchingGoals: () => {dispatch(fetchingGoals())},
+  })
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(HomeScreen)
 
 HomeScreen.navigationOptions = {
   header: null,
