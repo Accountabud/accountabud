@@ -1,47 +1,63 @@
 import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { MonoText } from '../components/StyledText';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-export default function ResourcesScreen() {
+
+
+export default function ResourcesScreen({navigation}) {
+
+
     return (
         <View style={styles.container}>
+
             <Text style={styles.page_title}>My Resources</Text>
             <View style={styles.button_group}>
               <TouchableOpacity
                 style={styles.button}
-                // onPress={onPress}
+                onPress={() => navigation.navigate('ReadPage')}
               >
-                <Text style={styles.button_name} onPress={() => WebBrowser.openBrowserAsync('https://docs.expo.io')}>READ</Text>
+                <Text style={styles.button_name}>READ</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
                 style={styles.button}
-                // onPress={onPress}
+                onPress={() => navigation.navigate('ListenPage')}
               >
                 <Text style={styles.button_name}>LISTEN</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
                 style={styles.button}
-                // onPress={onPress}
+                onPress={() => navigation.navigate('WatchPage')}
               >
                 <Text style={styles.button_name}>WATCH</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
                 style={styles.button}
-                // onPress={onPress}
+                onPress={() => navigation.navigate('DonatePage')}
               >
                 <Text style={styles.button_name}>DONATE</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
                 style={styles.button}
-                // onPress={onPress}
+                onPress={() => navigation.navigate('ShopPage')}
               >
                 <Text style={styles.button_name}> SHOP</Text>
               </TouchableOpacity>
             </View>
+            <View style={styles.tabBarInfoContainer}>
+       
+
+        {/* <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
+          <MonoText style={styles.codeHighlightText}></MonoText>
+        </View> */}
+      </View>
         </View>
     )
 } 
@@ -67,7 +83,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#EEE",
     padding: 10,
     borderWidth: 2,
-    borderColor: '#FCE21A',
+    borderColor: '#2196f3',
     margin: 10, 
   },
   page_title: {

@@ -4,16 +4,23 @@ import { StyleSheet, Text, View, Button, TouchableOpacity} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import resources from './resources.json'
 import Watch from './Watch'
+import BackButton from './BackButton'
+//import { MonoText } from '.../components/StyledText';
+
 
 export default function WatchPage() {
 
       return (
       // <View style={styles.container}>
       <View>
+        <BackButton/>
         <Text style={styles.page_title}>Watch</Text>
           <ScrollView >
             <Watch></Watch>
           </ScrollView>
+        {/* <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
+          <MonoText style={styles.codeHighlightText}></MonoText>
+        </View> */}
       </View>
   )
 }
