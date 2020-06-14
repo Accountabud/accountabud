@@ -12,7 +12,12 @@ import HomeScreen from './screens/HomeScreen';
 import MyProgressScreen from './screens/MyProgress';
 import ResourcesScreen from './screens/ResourcesScreen';
 import PastActionsScreen from './screens/PastActionsScreen'
+<<<<<<< HEAD
 import GoalsScreen from './screens/GoalsScreen';
+=======
+import {Provider} from 'react-redux'
+import store from './redux/store'
+>>>>>>> master
 
 const Stack = createStackNavigator();
 
@@ -24,6 +29,7 @@ export default function App(props) {
   } else {
     return (
       <FirebaseProvider value={Firebase}>
+        <Provider store = {store}>
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
           <NavigationContainer linking={LinkingConfiguration}>
@@ -33,6 +39,7 @@ export default function App(props) {
             </Stack.Navigator>
           </NavigationContainer>
         </View>
+        </Provider>
       </FirebaseProvider>
     );
   }

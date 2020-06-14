@@ -1,0 +1,188 @@
+{ 
+    "resources":{
+        "read": [
+            {
+                "title" : "The New Jim Crow by Michelle Alexander", 
+                "link" : "https://www.amazon.com/New-Jim-Crow-Incarceration-Colorblindness/dp/1595586431"
+            },
+            {
+                "title":"Women, Race and Class by Angela Davis",
+                "link": "https://www.amazon.com/Women-Race-Class-Angela-Davis/dp/0394713516"
+            },
+            {
+                "title" : "The Fire Next Time by James Baldwin",
+                "link" : "https://www.amazon.com/Fire-Next-Time-James-Baldwin/dp/067974472X"
+            
+            },
+            {
+                "title" : "How to be an Antiracist by Ibram X. Kendi",
+                "link" : "https://www.amazon.com/How-Be-Antiracist-Ibram-Kendi/dp/0525509283"
+            },
+            {
+                "title" : "Beloved by Toni Morrison",
+                "link" : "https://www.amazon.com/Beloved-Toni-Morrison/dp/1400033411"
+            },
+            {
+                "title" : "The Autobiography of Malcolm X by Alex Haley and Malcolm X",
+                "link" : "https://www.amazon.com/Autobiography-Malcolm-Told-Alex-Haley/dp/0345350685"
+            },
+            {
+                "title" : "Race Matters by Cornel West",
+                "link" : "https://www.amazon.com/Race-Matters-Cornel-West/dp/0679749861"
+            },
+            {
+                "title" : "Their Eyes Were Watching God by Zora Neale Hurston",
+                "link" : "https://www.amazon.com/Their-Eyes-Were-Watching-God/dp/0060838671"
+            },
+            {
+                "title" : "Your Silence Will Not Protect You by Audre Lorde",
+                "link" : "https://www.amazon.com/Your-Silence-Will-Not-Protect/dp/0995716226"
+            },
+            {
+                "title" : "Between the World and Me by Ta Ne-hisi Coates",
+                "link" : "https://www.amazon.com/Between-World-Me-Ta-Nehisi-Coates/dp/0451482212"
+            }
+        ],
+        "listen": [
+            {
+                "title" : "The Systems That Protect the Police", 
+                "link" : "https://open.spotify.com/episode/0gSO1Rypyoll5vDnhmmDT5?si=TJ54Ay-CQUyiJJc73U607Q"
+            },
+            {
+                "title" : "A Weekend of Pain and Protest",
+                "link" : "https://open.spotify.com/episode/29SEp9ZwsDkuWEgJSLf3xI?si=A7DmuMywR_2g-oefp9b88g"
+            },
+            {
+                "title" : "The Negro In American Culture 1961",
+                "link" : "https://www.youtube.com/watch?v=jNpitdJSXWY&feature=youtu.be"
+            },
+            {
+                "title" : "Why I'm No Longer Talking to White People About Race",
+                "link" : "https://www.theguardian.com/news/audio/2017/may/31/why-im-no-longer-talking-to-white-people-about-race-podcast"
+            },
+            {
+                "title" : "Racism Cont'd",
+                "link" : "https://open.spotify.com/episode/3rdWisifFwJTcLcOLuKQlz?si=JCqPA5E-Q62C7oIvVC812w"
+            },
+            {
+                "title" : "Dismantling White Fragility",
+                "link" : "https://open.spotify.com/episode/1mR1SjFIZOoIUD2nIaDrjp?si=hY1ps_X-SbOUrp3X8Pxfng"
+            },
+            {
+                "title" : "CodeSwitch Podcast:The Code Switch Guide To Race And Policing",
+                "link" : "https://www.npr.org/sections/codeswitch/2020/06/09/873066989/the-code-switch-guide-to-race-and-policing"
+
+            },
+            {
+                "title" : "Higher Learning with Van Lathan and Rachel Lindsay",
+                "link" : "https://open.spotify.com/show/4hI3rQ4C0e15rP3YKLKPut"
+            },
+            {
+                "title" : "Intersectionality Matters!",
+                "link" : "https://open.spotify.com/show/5CEVNLkyQ1kAx2MTSJZJLP"
+            }
+        ],
+        "watch": [
+            {
+                "title" : "Netflix: Explained- Racial Wealth Gap", 
+                "link" : "https://www.youtube.com/watch?v=Mqrhn8khGLM"
+            },
+            {
+                "title" : "Patriot Act with Hasan Minhaj- The Broken Policing System",
+                "link" : "https://www.youtube.com/watch?v=km4uCOAzrbM"
+            },
+            {
+                "title" : "Just Mercy",
+                "link" : "https://www.youtube.com/watch?v=q7MxXxFu6fI"
+            },
+            {
+                "title" : "The Black Power Mixtape",
+                "link" : "https://www.youtube.com/watch?v=FWb5HVAAQz0"
+            },
+            {
+                "title" : "James Baldwin Debates William F. Buckley (1965)",
+                "link" : "https://www.youtube.com/watch?v=oFeoS41xe7w"
+            },
+            {
+                "title" : "Time: The Kalief Browder Story",
+                "link" : "https://www.netflix.com/title/80187052"
+            },
+            {
+                "title" : "13th",
+                "link" : "https://www.netflix.com/watch/80091741?source=35"
+            },
+            {
+                "title" : "I Am Not Your Negro",
+                "link" : "https://www.youtube.com/watch?v=VXfzFh0eBZQ"
+            },
+            {
+                "title" : "Police: Last Week Tonight with John Oliver",
+                "link" : "https://www.youtube.com/watch?v=Wf4cea5oObY"
+            },
+            {
+                "title" : "The Daily Show w/ Trevor Noah: What Does It Mean to Defund or Abolish the Police?",
+                "link" : "https://www.youtube.com/watch?v=PVW2eaCyC5c"
+            }
+        ],
+        "donate": [
+            {
+                "title" : "Black Lives Matter",
+                "link" : "https://blacklivesmatter.com/"
+            },
+            {
+                "title" : "NAACP",
+                "link" : "https://naacp.org/campaigns/we-are-done-dying/"
+            },
+            {
+                "title" : "George Floyd Memorial Fund",
+                "link" : "https://www.gofundme.com/f/georgefloyd"
+            },
+            {
+                "title" : "Justice for Breonna Taylor",
+                "link" : "https://www.change.org/p/andy-beshear-justice-for-breonna-taylor?use_react=false"
+            },
+            {
+                "title" : "Black Visions Collective",
+                "link" : "https://www.blackvisionsmn.org/"
+            },
+            {
+                "title" : "Reclaim The Block",
+                "link" : "https://www.reclaimtheblock.org/home"
+            },
+            {
+                "title" : "Equal Justice Initiative",
+                "link" : "https://eji.org/"
+            },
+            {
+                "title" : "Campaign Zero",
+                "link" : "https://www.joincampaignzero.org/#vision"
+            },
+            {
+                "title" : "Live Free - Faith in Action",
+                "link" : "https://faithinaction.org/issue-campaign/live-free/"
+            },
+            {
+                "title" : "Brooklyn Community Bail Fund",
+                "link" : "https://brooklynbailfund.org/"
+            }
+        ],
+        "shop": [
+            {
+                "title" : "125 Black-Owned Businesses to Support",
+                "link" : "https://nymag.com/strategist/article/black-owned-businesses-support-shop.html"
+            },
+            {
+                "title" : "Black-Owned Business Directory",
+                "link" : "https://officialblackwallstreet.com/directory/"
+            },
+            {
+                "title" : "Find & Support Black-Owned Businesses With These Apps & Websites",
+                "link" : "https://www.refinery29.com/en-us/2020/06/9849096/find-black-owned-businesses-online-apps"
+            },
+            {
+                "title" : "Black-Owned Independent Bookstores",
+                "link" : "https://lithub.com/you-can-order-today-from-these-black-owned-independent-bookstores/"
+            }
+        ]
+    }
+}
