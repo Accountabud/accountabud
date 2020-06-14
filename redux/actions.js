@@ -25,17 +25,17 @@ function addedGoal(goalString){
     }
 }
 
-function deletedGoal(goalObject){
+function deletedGoal(goalId){
     return{
         type: "DELETED_GOAL",
-        payload: goalObject
+        payload: goalId
     }
 }
 
-function completedGoal(goalObject){
+function completedGoal(goalId){
     return{
         type:"COMPLETED_GOAL",
-        payload: goalObject
+        payload: goalId
     }
 }
 

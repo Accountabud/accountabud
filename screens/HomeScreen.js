@@ -14,7 +14,7 @@ function HomeScreen(props) {
         <Button title="Action Plan/ Tracker"/>
         <Button title="My Progress"/>
         <Button title="Resources"/>
-        <Button onPress={props.fetchingGoals} title="fetchingGoals" />
+        {/* <Button onPress={props.fetchingGoals} title="fetchingGoals" /> */}
         {/* <View style={styles.welcomeContainer}>
           <Image
             source={

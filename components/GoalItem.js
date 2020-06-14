@@ -2,115 +2,134 @@ import React, { useState } from 'react';
 import { SafeAreaView, View, FlatList, StyleSheet, Text, TouchableOpacity, TouchableHighlight } from 'react-native';
 import Constants from 'expo-constants';
 import { SwipeListView } from 'react-native-swipe-list-view';
-
-
-// const DATA = [
-//   {
-//     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-//     title: 'First Item',
-//   },
-//   {
-//     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-//     title: 'Second Item',
-//   },
-//   {
-//     id: '58694a0f-3da1-471f-bd96-145571e29d72',
-//     title: 'Third Item',
-//   },
-// ];
-
-function Item({ title }) {
-  return (
-    <View style={styles.item}>
-      <Text style={styles.title}>{title}</Text>
-    </View>
-  );
-}
+import { connect } from 'react-redux'
+import { addedGoal, deletedGoal, completedGoal } from '../redux/actions'
 
 
 
-export default function SwipeGoals() {
-  const [listData, setListData] = useState(
-    Array(20)
-        .fill('')
-        .map((_, i) => ({ key: `${i}`, text: `item #${i}` }))
-);
+function SwipeGoals(props) {
 
-const closeRow = (rowMap, rowKey) => {
-  if (rowMap[rowKey]) {
-      rowMap[rowKey].closeRow();
-  }
-};
-
-const deleteRow = (rowMap, rowKey) => {
-  closeRow(rowMap, rowKey);
-  const newData = [...listData];
-  const prevIndex = listData.findIndex(item => item.key === rowKey);
-  newData.splice(prevIndex, 1);
-  setListData(newData);
-};
-
-const onRowDidOpen = rowKey => {
-  console.log('This row opened', rowKey);
-};
-
-const renderItem = data => (
-  <TouchableHighlight
-      onPress={() => console.log('You touched me')}
-      style={styles.rowFront}
-      underlayColor={'#AAA'}
-  >
-      <View>
-          <Text>I am {data.item.text} in a SwipeListView</Text>
-      </View>
-  </TouchableHighlight>
-);
-
-const renderHiddenItem = (data, rowMap) => (
-  <View style={styles.rowBack}>
-      <Text>Left</Text>
-      <TouchableOpacity
-          style={[styles.backRightBtn, styles.backRightBtnLeft]}
-          onPress={() => closeRow(rowMap, data.item.key)}
-      >
-          <Text style={styles.backTextWhite}>Close</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-          style={[styles.backRightBtn, styles.backRightBtnRight]}
-          onPress={() => deleteRow(rowMap, data.item.key)}
-      >
-          <Text style={styles.backTextWhite}>Delete</Text>
-      </TouchableOpacity>
-  </View>
-);
-
-
+  const completeRow = (rowMap, rowKey) => {
+    // closeRow(rowMap, rowKey);
+    props.completedGoal(rowKey);
   
-  return (
-    <View style={styles.container}>
-      <SwipeListView
-        data={listData}
-        renderItem={renderItem}
-        renderHiddenItem={renderHiddenItem}
-        leftOpenValue={75}
-        rightOpenValue={-150}
-        previewRowKey={'0'}
-        previewOpenValue={-40}
-        previewOpenDelay={3000}
-        onRowDidOpen={onRowDidOpen}
-      />
+  };
+
+  const closeRow = (rowMap, rowKey) => {
+    if (rowMap[rowKey]) {
+        rowMap[rowKey].closeRow();
+    }
+  };
+
+  const deleteRow = (rowMap, rowKey) => {
+    props.deletedGoal(rowKey); 
+    // closeRow(rowMap, rowKey);
+  };
+
+  const onRowDidOpen = rowKey => {
+    console.log('This row opened', rowKey);
+  };
+
+  const renderItem = data => {
+    if (!data.item.completed) {
+      return (
+    
+        <TouchableHighlight
+            onPress={() => console.log('You touched me')}
+            style={styles.rowFront}
+            underlayColor={'#AAA'}
+        >
+            <View>
+                <Text style={styles.goalText}>{data.item.goal} </Text>
+            </View>
+        </TouchableHighlight>
+      )
+
+    } 
+
+    if ( data.item.completed) {
+        return (
+          <TouchableHighlight
+          onPress={() => console.log('You touched me')}
+          style={styles.completedGoal}
+          underlayColor={'#AAA'}
+      >
+          <View>
+              <Text style={styles.goalText}>{data.item.goal} </Text>
+          </View>
+      </TouchableHighlight>
+        )
+      }
+  };
+
+  const renderHiddenItem = (data, rowMap) => (
+    <View style={styles.rowBack}>
+      
+      {/* complete goal */}
+        <TouchableOpacity
+          style={[styles.backRightBtn, styles.backLeftBtnLeft]}
+          onPress={() => completeRow(rowMap, data.item.id)}
+        >
+          <Text>Done!</Text>
+        </TouchableOpacity>
+
+
+        {/* close goal item */}
+        <TouchableOpacity
+            style={[styles.backRightBtn, styles.backRightBtnLeft]}
+            onPress={() => {
+              console.log(rowMap, 'here is the rowmap')
+              closeRow(rowMap, data.item.id-1)
+              console.log(data.item.id-1)
+            }
+            }
+        >
+            <Text style={styles.backTextWhite}>Close</Text>
+        </TouchableOpacity>
+
+
+        {/* delete goal item */}
+        <TouchableOpacity
+            style={[styles.backRightBtn, styles.backRightBtnRight]}
+            onPress={() => deleteRow(rowMap, data.item.id)}
+        >
+            <Text style={styles.backTextWhite}>Delete</Text>
+        </TouchableOpacity>
     </View>
-
-
-    // <SafeAreaView style={styles.container}>
-    //   <FlatList
-    //     data={DATA}
-    //     renderItem={({ item }) => <Item title={item.title} />}
-    //     keyExtractor={item => item.id}
-    //   />
-    // </SafeAreaView>
   );
+    
+    return (
+      <View style={styles.container}>
+        <SwipeListView
+          data={props.goals}
+          renderItem={renderItem}
+          renderHiddenItem={renderHiddenItem}
+          leftOpenValue={75}
+          rightOpenValue={-150}
+          previewRowKey={'0'}
+          previewOpenValue={-40}
+          previewOpenDelay={3000}
+          onRowDidOpen={onRowDidOpen}
+        />
+      </View>
+    );
+  }
+
+  const mapStateToProps = state => {
+    return({
+      goals: state.goals
+    })
+  }
+
+  const mapDispatchToProps = dispatch => {
+    return ({
+      addedGoal: (goalString) => {dispatch(addedGoal(goalString))},
+      deletedGoal: (goalId) => {dispatch(deletedGoal(goalId))},
+      completedGoal: (goalId) => {dispatch(completedGoal(goalId))}
+    })
 }
+
+export default connect(mapStateToProps,mapDispatchToProps)(SwipeGoals)
 
 const styles = StyleSheet.create({
   container: {
@@ -122,11 +141,11 @@ backTextWhite: {
 },
 rowFront: {
     alignItems: 'center',
-    backgroundColor: '#CCC',
+    backgroundColor: 'white',
     borderBottomColor: 'black',
     borderBottomWidth: 1,
     justifyContent: 'center',
-    height: 50,
+    height: 80,
 },
 rowBack: {
     alignItems: 'center',
@@ -153,59 +172,25 @@ backRightBtnRight: {
     right: 0,
 },
 
-  // container: {
-  //   flex: 1,
-  //   marginTop: Constants.statusBarHeight,
-  // },
-  // item: {
-  //   backgroundColor: '#f9c2ff',
-  //   padding: 20,
-  //   marginVertical: 8,
-  //   marginHorizontal: 16,
-  // },
-  // title: {
-  //   fontSize: 32,
-  // },
+backLeftBtnLeft: {
+  backgroundColor: 'green',
+    left: 0,
+},
+goalText: {
+  fontSize:18,
+  textTransform: "uppercase",
+  letterSpacing: 1
+},
+
+completedGoal: {
+  alignItems: 'center',
+  backgroundColor: '#FBEEA4',
+  borderBottomColor: 'black',
+  borderBottomWidth: 1,
+  justifyContent: 'center',
+  height: 80,
+}
+
 });
 
 
-// const GoalItem = () => {
-//   return (
-//     <TouchableOpacity style={styles.listItem}>
-//       <View style={styles.listItemView}>
-//         {/* <CheckBox/> */}
-//         <Text style={styles.listItemText}>
-//           Goal Title
-//         </Text>
-//         <Text 
-//           style={styles.deleteItem}
-//           >
-//           X</Text>
-//       </View>
-//     </TouchableOpacity>
-//   )
-// }
-
-// const styles = StyleSheet.create({
-//   listItem: {
-//     padding: 15,
-//     backgroundColor: '#f8f8f8',
-//     borderBottomWidth: 1,
-//     borderColor: '#eee',
-//   },
-//   listItemView: {
-//     flexDirection: 'row',
-//     justifyContent: 'space-between',
-//     alignItems: 'center'
-//   },
-//   listItemText: {
-//     fontSize: 18,
-//   },
-//   deleteItem: {
-//     color: 'firebrick',
-//     fontSize: 20,
-//   }
-  
-// })
-
-// export default GoalItem
