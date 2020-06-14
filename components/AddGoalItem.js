@@ -13,6 +13,7 @@ const AddGoalItem = (props) => {
     // console.log('pressing', goal);
     // firebase.setGoals(goal);
     props.addedGoal(goal)
+    setGoal('')
   }
 
   return (
@@ -22,6 +23,7 @@ const AddGoalItem = (props) => {
       label="Goal"
       placeholder="Add a New Goal.." 
       style={styles.input}
+      value={goal}
       onChangeText={text => {setGoal(text)}}
       />
     <TouchableOpacity style={styles.btn}>

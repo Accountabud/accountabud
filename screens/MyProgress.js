@@ -1,8 +1,9 @@
 import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
 import { StyleSheet, Text, View, Button} from 'react-native';
+import {connect} from 'react-redux'
 
-export default function ProgressScreen() {
+function ProgressScreen(props) {
     return (
         <View style={styles.container}>
             <Text style={styles.page_title}>My Progress</Text>
@@ -11,13 +12,21 @@ export default function ProgressScreen() {
                 <Text style={styles.stat_number}>40</Text>
                 <Text style={styles.stat_units}>DAYS</Text>
                 <Text style={styles.stat_title}>TOTAL IMPACT</Text>
-                <Text style={styles.stat_number}>600</Text>
-                <Text style={styles.stat_units}>DAYS</Text>      
+                <Text style={styles.stat_number}>{props.goals.filter(p => p.completed).length}</Text>
+                <Text style={styles.stat_units}>ACTIONS</Text>      
             </View>
-            <Button title="Past Actions"/>
+            {/* <Button title="Past Actions"/> */}
         </View>
     )
 } 
+
+const mapStateToProps = state => {
+    return({
+      goals: state.goals
+    })
+  }
+
+export default connect(mapStateToProps)(ProgressScreen)
 
 const styles = StyleSheet.create({
     container: {
