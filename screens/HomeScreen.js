@@ -1,38 +1,96 @@
 import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
-import { Image, Platform, StyleSheet, Text, TouchableOpacity, Button, View } from 'react-native';
+import {
+  Image,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  Button,
+  View,
+  SafeAreaView,
+} from 'react-native';
+import { List, ListItem } from 'react-native-elements';
+
 import { ScrollView } from 'react-native-gesture-handler';
-import {connect} from 'react-redux'
-import {fetchingGoals} from '../redux/actions'
+import { connect } from 'react-redux';
+import { fetchingGoals } from '../redux/actions';
 
 import { MonoText } from '../components/StyledText';
 
+const list = [
+  {
+    listItem: 'Hold yourself to being an active BLM ally',
+  },
+  {
+    listItem: 'Create a long-term action plan',
+  },
+  {
+    listItem: 'Find organized resources',
+  },
+  {
+    listItem: 'Take realistic actions that day by day will lead to real change',
+  },
+];
+
 function HomeScreen(props) {
-  return (
-    <View style={styles.container}>
-      <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-      <Image styles={styles.personimage} source={require('../assets/images/mountainsicon.png')} />
-      <View styles={styles.logoimage}>
-      <Image styles={styles.logoimage} source={require('../assets/images/bluelogo.png')} />
+  const renderRow = ({ item }) => {
+    return (
+      <View style={styles.listItem}>
+        <Text style={styles.listItemText}>{item.listItem}</Text>
+      </View>
+    );
+  };
+
+  const renderHeader = () => {
+    return (
+      <View>
+        <View style={styles.imageContainer}>
+          <Image
+            style={styles.personImage}
+            resizeMode="stretch"
+            source={require('../assets/images/mountainsicon.png')}
+          />
         </View>
-      </ScrollView>
-    </View>
+        <View styles={styles.logoimage}>
+          <Text style={styles.headerTitle}>
+            Accounta
+            <Text style={{ color: 'black' }}>bud</Text>
+          </Text>
+        </View>
+      </View>
+    );
+  };
+
+  return (
+    <SafeAreaView style={styles.flatListContainer}>
+      <FlatList
+        ListHeaderComponent={renderHeader}
+        style={styles.flatList}
+        data={list}
+        renderItem={renderRow}
+        keyExtractor={(item, index) => index.toString()}
+      />
+    </SafeAreaView>
   );
 }
 
 const mapStateToProps = state => {
-  return({
-    goals: state.goals
-  })
-}
+  return {
+    goals: state.goals,
+  };
+};
 
 const mapDispatchToProps = dispatch => {
-  return ({
-    fetchingGoals: () => {dispatch(fetchingGoals())},
-  })
-}
+  return {
+    fetchingGoals: () => {
+      dispatch(fetchingGoals());
+    },
+  };
+};
 
-export default connect(mapStateToProps,mapDispatchToProps)(HomeScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
 
 HomeScreen.navigationOptions = {
   header: null,
@@ -48,8 +106,8 @@ function DevelopmentModeNotice() {
 
     return (
       <Text style={styles.developmentModeText}>
-        Development mode is enabled: your app will be slower but you can use useful development
-        tools. {learnMoreButton}
+        Development mode is enabled: your app will be slower but you can use
+        useful development tools. {learnMoreButton}
       </Text>
     );
   } else {
@@ -62,7 +120,9 @@ function DevelopmentModeNotice() {
 }
 
 function handleLearnMorePress() {
-  WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/workflow/development-mode/');
+  WebBrowser.openBrowserAsync(
+    'https://docs.expo.io/versions/latest/workflow/development-mode/'
+  );
 }
 
 function handleHelpPress() {
@@ -72,52 +132,48 @@ function handleHelpPress() {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  headerTitle: {
+    color: '#007CFF',
+    fontSize: 50,
+    fontWeight: 'bold',
+    marginTop: 150,
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  listItem: {
+    elevation: 1,
+    borderRadius: 2,
+    backgroundColor: '#007CFF',
     flex: 1,
-    backgroundColor: '#fff',
-  },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
-  contentContainer: {
-    paddingTop: 30,
-  },
-  welcomeContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
     alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
+    paddingTop: 20,
+    paddingBottom: 20,
+    paddingLeft: 18,
+    paddingRight: 16,
+    marginLeft: 14,
+    marginRight: 14,
+    marginTop: 0,
+    marginBottom: 6,
   },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
+  listItemText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 16,
   },
-  getStartedContainer: {
+  flatListContainer: {
+    flex: 1,
+    padding: 8,
+    flexDirection: 'column',
+    justifyContent: 'center',
     alignItems: 'center',
-    marginHorizontal: 50,
+    backgroundColor: 'white',
+    height: 400,
   },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
+  flatList: {
+    marginTop: 14,
+    alignSelf: 'stretch',
   },
   tabBarInfoContainer: {
     position: 'absolute',
@@ -144,31 +200,14 @@ const styles = StyleSheet.create({
     color: 'rgba(96,100,109, 1)',
     textAlign: 'center',
   },
-  navigationFilename: {
-    marginTop: 5,
+  imageContainer: {
+    flex: 1,
+    position: 'absolute',
+    right: 10,
+    top: 0,
   },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
-  },
-
-  personimage: {
-    width: '50%'
-  },
-
-  logoimage: {
-    width: '50%',
-    margin: 20,
-    paddingLeft: 20,
-    backgroundColor: 'red',
-  
-    
+  personImage: {
+    width: 300,
+    height: 200,
   },
 });
